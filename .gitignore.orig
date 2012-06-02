@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled source #
 ###################
 *.com
@@ -47,6 +48,25 @@ man
 .Python
 *.pyc
 settings_local.py
+
+# Eclipse & Pydev plugin
+.project
+.pydevproject
+.settings
+
+# Nose
+.noseids
+
+# Gondor
+.gondor
+=======
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
 eggs
 parts
 bin
@@ -55,23 +75,16 @@ sdist
 develop-eggs
 .installed.cfg
 
-# Eclipse & Pydev plugin
-.project
-.pydevproject
-.settings
 # Installer logs
 pip-log.txt
 
-# Nose
-.noseids
 # Unit test / coverage reports
 .coverage
 .tox
 
-# Gondor
-.gondor
 #Translations
 *.mo
 
 #Mr Developer
 .mr.developer.cfg
+>>>>>>> 56ad3dac097ee78432a431a72dc650d60574f953

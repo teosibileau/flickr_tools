@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'tagging',
     'flickrtools.flickrauth',
     'flickrtools.photosets',
     'south',

@@ -7,3 +7,4 @@ class Access(models.Model):
     class Meta:
         verbose_name='Access'
         verbose_name_plural='Accesses'
+    

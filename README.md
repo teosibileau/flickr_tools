@@ -4,9 +4,9 @@ I have a collection of flickr tools/app that i'm gonna move over a django projec
 
 ## Why 
 
-I love using ifttt.com to automate replication of content over different services. I have one task setup to upload instagram photos to flickr so my family and some old school friends can see them (basically people that don't give a crap about instagram). 
+I love using [ifttt](http://ifttt.com) to automate replication of content over different services. I have one task setup to upload instagram photos to flickr so my family and some old school friends can see them (basically people that don't know/give a crap about [instagram](http://instagram.com)). 
 
-Currently ifttt can upload this pictures to your photostream providing a tag to attach to them. That's about it, you can't put them on a set dynamically based on given criteria. Also this pictures are uploaded with 'only family' permissions.
+Currently [ifttt](http://ifttt.com) can upload this pictures to your photostream providing a tag attached to them. That's about it, you can't put them on a set dynamically based on given criteria. Also this pictures are uploaded with 'only family' permissions.
 
 This app just do that. Scans your photostream for pictures with given tags, make them public and put them in predefined sets.
 
@@ -17,6 +17,7 @@ This app just do that. Scans your photostream for pictures with given tags, make
 + virtualenv
 + Some messaging service compatible with celery, i use [redis](http://redis.io)
 + a db compatible with django, i use sqlite 3 in dev, postgres or mongodb in prod. If you are not familiar how django manages dbs go [here](https://docs.djangoproject.com/en/1.3/ref/databases/)
++ your user id, the real one, not the login id. Get it [here](http://idgettr.com/)
 + your own key and secret for the flickr api. Get it [here](http://www.flickr.com/services/apps/create/apply/)
 
 ## Installation

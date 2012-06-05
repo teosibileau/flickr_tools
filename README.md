@@ -15,9 +15,9 @@ This app just do that. Scans your photostream for pictures with given tags, make
 + Python 2.7
 + pip
 + virtualenv
-+ Some messaging service compatible with celery, i use redis (http://redis.io)
-+ a db compatible with django, i use sqlite 3 in dev, postgres or mongodb in prod
-+ your own key and secret for the flickr api -> http://www.flickr.com/services/apps/create/apply/
++ Some messaging service compatible with celery, i use [redis](http://redis.io)
++ a db compatible with django, i use sqlite 3 in dev, postgres or mongodb in prod. If you are not familiar how django manages dbs go [here](https://docs.djangoproject.com/en/1.3/ref/databases/)
++ your own key and secret for the flickr api. Get it [here](http://www.flickr.com/services/apps/create/apply/)
 
 ## Installation
 
@@ -39,7 +39,7 @@ python manage.py migrate
 
 ```
 
-Any settings override (Database config, broker message config, etc) are conveniently made inside **flickrtools/settings_local.py**. Just copy the demo file:
+Any settings override (Database config, broker message config, etc) are conveniently made inside **settings_local.py**. Just copy the demo file:
 
 ```bash
 cp settings_local_demo.py settings_local.py
@@ -75,23 +75,25 @@ tags='tag1,tag2,tag3'
 photoset.save()
 ```
 
-With this two instances the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing them to the photoset via a async celery task.
+With this two instances the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing the photos to the photoset via a async celery task.
+
+Just so you know, you could go nuts with it. Create several access instances and photosets. The bottleneck is at adding the photos one by one to  the flickr set and that's where celery pays. The script itself should run in a couple of seconds.
 
 ## Run the script
 
-Start your broker, mine is redis so:
+Start your message broker, mine is redis so:
 
 ```bash
 redis-server
 ```
 
-Start your celery instance within django:
+Start your celery instance with django:
 
 ```bash
 python manage.py celeryd --loglevel=info
 ```
 
-Run the management command
+Run the management command (aka script)
 
 ```bash
 python manage.py scanfortags
@@ -99,4 +101,4 @@ python manage.py scanfortags
 
 The first time, it will open a browser and ask you to accept/reject access to the flickr api on your behalf. Just accept, come back to the terminal and press enter to continue.
 
-That's about it, enjoy.
+## That's about it, enjoy.

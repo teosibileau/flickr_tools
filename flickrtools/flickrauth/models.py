@@ -8,3 +8,5 @@ class Access(models.Model):
         verbose_name='Access'
         verbose_name_plural='Accesses'
     
+    def __unicode__(self):
+        return u"%s"%self.user

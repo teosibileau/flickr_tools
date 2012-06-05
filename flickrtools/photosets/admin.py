@@ -5,4 +5,3 @@ class PhotoSetAdmin(admin.ModelAdmin):
     list_display=('uid','title')
 
 admin.site.register(Photoset,PhotoSetAdmin)
-admin.site.register(Photo)

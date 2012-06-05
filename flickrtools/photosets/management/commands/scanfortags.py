@@ -4,9 +4,9 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.contenttypes.models import ContentType
 
 import flickrapi
-from flickrtools.flickrauth.models import *
-from flickrtools.photosets.models import *
-
+from flickrauth.models import *
+from photosets.models import *
+from photosets.tasks import addPhoto
 class Command(BaseCommand):
     help='Command to scan new photos tagged with specific instances and asign them to sets'
     def handle(self,*args,**options):
@@ -26,9 +26,5 @@ class Command(BaseCommand):
                 if not uset.uid:
                     uset.uid=flickr.photosets_create(title=uset.title,primary_photo_id=photos[0].get('id'))[0].get('id')
                 for photo in photos:
-                    flickr.photos_setPerms(photo_id=photo.get('id'),is_public=1,is_friend=0,is_family=0,perm_comment=3,perm_addmeta=0)
-                    try:
-                        flickr.photosets_addPhoto(photoset_id=uset.uid,photo_id=photo.get('id'))
-                    except:
-                        pass
+                    addPhoto.delay(access,uset,photo)
                 uset.save()

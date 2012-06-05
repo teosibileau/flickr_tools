@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from tagging.fields import TagField
-from flickrtools.flickrauth.models import Access
+from flickrauth.models import Access
 
 class Photoset(models.Model):
     access=models.ForeignKey(Access,related_name='photosets')

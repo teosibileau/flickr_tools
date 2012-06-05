@@ -1,2 +1,102 @@
-flickr_tools
-============
+I have a collection of flickr tools/app that i'm gonna move over a django project. For now i've migrated just one.
+
+# Dynamic flickr sets based on tags
+
+## Why 
+
+I love using ifttt.com to automate replication of content over different services. I have one task setup to upload instagram photos to flickr so my family and some old school friends can see them (basically people that don't give a crap about instagram). 
+
+Currently ifttt can upload this pictures to your photostream providing a tag to attach to them. That's about it, you can't put them on a set dynamically based on given criteria. Also this pictures are uploaded with 'only family' permissions.
+
+This app just do that. Scans your photostream for pictures with given tags, make them public and put them in predefined sets.
+
+## Non pip requirements
+
++ Python 2.7
++ pip
++ virtualenv
++ Some messaging service compatible with celery, i use redis (http://redis.io)
++ a db compatible with django, i use sqlite 3 in dev, postgres or mongodb in prod
++ your own key and secret for the flickr api -> http://www.flickr.com/services/apps/create/apply/
+
+## Installation
+
+Clone project and install requirements in virtualenv
+
+```bash
+git clone git://github.com/drkloc/flickr_tools.git
+cd flickr-tools
+# initialize virtualenv
+virtualenv . --distribute
+# activate enviroment
+source bin/activate
+# install dependencies
+pip install -r requirements.txt
+# install django
+cd flickrtools
+python manage.py syncdb
+python manage.py migrate
+
+```
+
+Any settings override (Database config, broker message config, etc) are conveniently made inside **flickrtools/settings_local.py**. Just copy the demo file:
+
+```bash
+cp settings_local_demo.py settings_local.py
+```
+
+and start customizing whatever you want/need.
+
+## Inicialization
+
+We need to set up a flickr api access and some dynamic photosets to make this work. Open a django shell:
+
+```bash
+python manage.py shell
+```
+
+initialize an Access and Photoset instances to meet your needs
+
+```python
+from flickrauth.models import Access
+from photosets.models import Photoset
+access=Access()
+# this is an example userid get your own with http://idgettr.com/
+access.user='19332439@F09'
+# this is an example (key,secret), get your own at http://www.flickr.com/services/apps/create/apply/
+access.key='daskdaksdl1231231'
+access.secret='daskdaksdl1231231'
+access.save()
+# set up your photoset
+photoset=PhotoSet()
+photoset.access=access
+photoset.title='My title'
+tags='tag1,tag2,tag3'
+photoset.save()
+```
+
+With this two instances the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing them to the photoset via a async celery task.
+
+## Run the script
+
+Start your broker, mine is redis so:
+
+```bash
+redis-server
+```
+
+Start your celery instance within django:
+
+```bash
+python manage.py celeryd --loglevel=info
+```
+
+Run the management command
+
+```bash
+python manage.py scanfortags
+```
+
+The first time, it will open a browser and ask you to accept/reject access to the flickr api on your behalf. Just accept, come back to the terminal and press enter to continue.
+
+That's about it, enjoy.

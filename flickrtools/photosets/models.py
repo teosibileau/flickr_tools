@@ -14,8 +14,6 @@ class Photoset(models.Model):
         verbose_name_plural='Photosets'
     
     def save(self):
-        if self.id and self.uid:
-            self.last_checked=datetime.now()
         super(Photoset,self).save()
     
     def __unicode__(self):

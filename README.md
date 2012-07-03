@@ -69,10 +69,10 @@ access.key='daskdaksdl1231231'
 access.secret='daskdaksdl1231231'
 access.save()
 # set up your photoset
-photoset=PhotoSet()
+photoset=Photoset()
 photoset.access=access
 photoset.title='My title'
-tags='tag1,tag2,tag3'
+photoset.tags='tag1,tag2,tag3'
 photoset.save()
 ```
 

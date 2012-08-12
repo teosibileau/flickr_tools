@@ -28,8 +28,7 @@ Any settings override (Database config, broker message config, etc) are convenie
 cp flickrtools/settings_local_demo.py flickrtools/settings_local.py
 ```
 
-and start customizing whatever you want/need.
-
+run fabric recipe to setup virtualenv and bootstrap django app
 
 ```bash
 fab DEV setup

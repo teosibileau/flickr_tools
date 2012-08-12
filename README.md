@@ -44,29 +44,17 @@ source bin/activate
 python flickrtools/manage.py shell
 ```
 
-initialize an Access and Photoset instances to meet your needs
+initialize an Access and Photoset(s) instances that meet your needs
 
-```python
-from flickrauth.models import Access
-from photosets.models import Photoset
-access=Access()
-# this is an example userid get your own with http://idgettr.com/
-access.user='19332439@F09'
-# this is an example (key,secret), get your own at http://www.flickr.com/services/apps/create/apply/
-access.key='daskdaksdl1231231'
-access.secret='daskdaksdl1231231'
-access.save()
-# set up your photoset
-photoset=Photoset()
-photoset.access=access
-photoset.title='My title'
-photoset.tags='tag1,tag2,tag3'
-photoset.save()
+```bash
+    source bin/activate
+    python flickrtools/manage.py addaccess "<accessslug>" "<flickruserid>" "<flickrkey>" "<flickrsecret>"
+    python flickrtools/manage.py addphotoset "<accessslug>" "<photosettitle>" "<photosettags>"
 ```
 
-With this two instances the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing the photos to the photoset via a async celery task.
+With this setup, the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing the photos to the photoset via a async celery task.
 
-Just so you know, you could go nuts with it. Create several access instances and photosets. The bottleneck is at adding the photos one by one to  the flickr set and that's where celery pays. The script itself should run in a couple of seconds.
+Just so you know, you could go nuts with it. Create several access instances and photosets. The bottleneck exits when adding the photos one by one to the flickr set and that's exactly where celery pays. The script itself should run in a couple of seconds.
 
 ## Run the script
 

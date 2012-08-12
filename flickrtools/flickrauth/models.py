@@ -1,6 +1,7 @@
 from django.db import models
 
 class Access(models.Model):
+    slug=models.SlugField(unique=True)
     user=models.CharField(max_length=50)
     key=models.CharField(max_length=40)
     secret=models.CharField(max_length=20)

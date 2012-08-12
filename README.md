@@ -48,7 +48,7 @@ cp settings_local_demo.py settings_local.py
 
 and start customizing whatever you want/need.
 
-## Inicialization
+## Setup
 
 We need to set up a flickr api access and some dynamic photosets to make this work. Open a django shell:
 

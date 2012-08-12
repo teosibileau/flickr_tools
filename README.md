@@ -25,7 +25,7 @@ This app just do that. Scans your photostream for pictures with given tags, make
 Any settings override (Database config, broker message config, etc) are conveniently made inside **settings_local.py**. Just copy the demo file:
 
 ```bash
-cp settings_local_demo.py settings_local.py
+cp flickrtools/settings_local_demo.py flickrtools/settings_local.py
 ```
 
 and start customizing whatever you want/need.

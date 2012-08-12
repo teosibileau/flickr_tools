@@ -22,24 +22,6 @@ This app just do that. Scans your photostream for pictures with given tags, make
 
 ## Installation
 
-Clone project and install requirements in virtualenv
-
-```bash
-git clone git://github.com/drkloc/flickr_tools.git
-cd flickr-tools
-# initialize virtualenv
-virtualenv . --distribute
-# activate enviroment
-source bin/activate
-# install dependencies
-pip install -r requirements.txt
-# install django
-cd flickrtools
-python manage.py syncdb
-python manage.py migrate
-
-```
-
 Any settings override (Database config, broker message config, etc) are conveniently made inside **settings_local.py**. Just copy the demo file:
 
 ```bash
@@ -48,12 +30,19 @@ cp settings_local_demo.py settings_local.py
 
 and start customizing whatever you want/need.
 
+
+```bash
+fab DEV setup
+```
+
+
 ## Setup
 
 We need to set up a flickr api access and some dynamic photosets to make this work. Open a django shell:
 
 ```bash
-python manage.py shell
+source bin/activate
+python flickrtools/manage.py shell
 ```
 
 initialize an Access and Photoset instances to meet your needs

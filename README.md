@@ -37,7 +37,7 @@ fab DEV setup
 
 ## Setup
 
-We need to set up a flickr api access and some dynamic photosets to make this work. Open a django shell:
+We need to set up a flickr api access and some dynamic photosets to make this work. 
 
 initialize an Access and Photoset(s) instances that meet your needs
 
@@ -47,7 +47,7 @@ python flickrtools/manage.py addaccess "<accessslug>" "<flickruserid>" "<flickrk
 python flickrtools/manage.py addphotoset "<accessslug>" "<photosettitle>" "<photosettags>"
 ```
 
-With this setup, the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and assing the photos to the photoset via a async celery task.
+With this setup, the script will search for photos that belongs to the user and have all those tags. It will then create the photoset, if it does not exits in flickr, and add the photos to the photoset via a async celery task.
 
 Just so you know, you could go nuts with it. Create several access instances and photosets. The bottleneck exits when adding the photos one by one to the flickr set and that's exactly where celery pays. The script itself should run in a couple of seconds.
 

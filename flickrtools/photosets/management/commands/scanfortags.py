@@ -34,8 +34,7 @@ class Command(BaseCommand):
                     av_photosets=flickr.photosets_getList()[0]
                     av_photosets_titles=[photoset[0].text for photoset in av_photosets]
                     if not uset.title in av_photosets_titles:
-                        self.stdout.write('%s does not exits in creating'%(uset.title,av_photosets_titles))
-                        uset.uid=flickr.photosets_create(title=uset.title,primary_photo_id=photos[0].get('id'))[0].get('id')
+                        uset.uid=flickr.photosets_create(title=uset.title, primary_photo_id=photos[0].get('id'))[0].get('id')
                     else:
                         uset.uid=av_photosets[av_photosets_titles.index(uset.title)].get('id')
                 for photo in photos:
